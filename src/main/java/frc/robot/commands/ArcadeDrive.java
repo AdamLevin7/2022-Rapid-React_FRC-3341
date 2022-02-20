@@ -16,7 +16,7 @@ public class ArcadeDrive extends CommandBase {
     _driveTrain = dt;
     _joystick = j;
  
-    addRequirements(_driveTrain);
+    addRequirements(_driveTrain); 
   }
  
   // Called when the command is initially scheduled.
