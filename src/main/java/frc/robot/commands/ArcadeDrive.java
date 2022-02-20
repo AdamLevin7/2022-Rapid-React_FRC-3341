@@ -9,7 +9,7 @@ public class ArcadeDrive extends CommandBase {
  
   private final DriveTrain _driveTrain;
   private final Joystick _joystick;
-  
+   
   /** Creates a new TankDrive. */
   public ArcadeDrive(DriveTrain dt, Joystick j) {
     // Use addRequirements() here to declare subsystem dependencies.
