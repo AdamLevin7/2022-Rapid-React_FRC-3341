@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.PIDRotate;
 import frc.robot.commands.Rotate;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
@@ -24,15 +25,17 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private Climber climber;
-  private Rotate up;
-  private Rotate down;
-  private Rotate zero;
+  //private Climber climber;
+  private PIDRotate up;
+  private PIDRotate down;
+  private PIDRotate zero;
+  private Rotate teleOp;
   private static Joystick joy;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
  
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final Climber climber = new Climber();
  
   //private final DriveTrain driveTrain;
  //private final ArcadeDrive arcadeDrive;
@@ -40,15 +43,16 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     joy = new Joystick(0);
-    climber = new Climber();
+    //climber = new Climber();
     Constants.ExtendConsts.frontLeftCurrPos = 0;
-    up = new Rotate(climber, 1, Constants.armAngles.up, joy);
-    /*down = new Rotate(climber, 1, Constants.armAngles.down);
-    zero = new Rotate(climber, 1, Constants.armAngles.zero);
-    climber.setPosition(0);*/
+    up = new PIDRotate(climber, 1, Constants.armAngles.up);
+    down = new PIDRotate(climber, 1, Constants.armAngles.down);
+    zero = new PIDRotate(climber, 1, Constants.armAngles.zero);
+    teleOp = new Rotate(climber, joy, 1);
+    climber.setPosition(0);
   //  driveTrain = new DriveTrain();
    // arcadeDrive = new ArcadeDrive(driveTrain, joy);
-    climber.setDefaultCommand(up);
+    climber.setDefaultCommand(teleOp);
     //driveTrain.setDefaultCommand(arcadeDrive);
     configureButtonBindings();
   }
@@ -60,13 +64,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    /*JoystickButton zeroButton = new JoystickButton(joy, 3);
+    JoystickButton zeroButton = new JoystickButton(joy, 3);
     JoystickButton upButton = new JoystickButton(joy, 4);
     JoystickButton downButton = new JoystickButton(joy, 5);
  
-    zeroButton.whenPressed(zero);
-    upButton.whenPressed(up);
-    downButton.whenPressed(down);*/
+    zeroButton.whenPressed(zero, false);
+    upButton.whenPressed(up, false);
+    downButton.whenPressed(down, false);
   }
  public static Joystick returnJoy(){
    return joy;

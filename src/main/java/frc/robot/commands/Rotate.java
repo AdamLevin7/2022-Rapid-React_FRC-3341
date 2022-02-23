@@ -7,41 +7,34 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climber;
  
 public class Rotate extends CommandBase {
   /** Creates a new Rotate. */
-  ArmFeedforward arm = new ArmFeedforward(Constants.charConsts.ks, Constants.charConsts.kcos, Constants.charConsts.kv);
-  PIDController pid = new PIDController(Constants.pidConsts.pidP, Constants.pidConsts.pidI, Constants.pidConsts.pidD);
+  //ArmFeedforward arm = new ArmFeedforward(Constants.charConsts.ks, Constants.charConsts.kcos, Constants.charConsts.kv);
   private Climber climber;
-  private int motorNum;
-  private double angle;
   private Joystick joy;
+  private int motorNum;
  
-  public Rotate(Climber climber, int motorNum, double angle, Joystick joy) {
-    addRequirements(climber);
-    this.angle = angle;
-    this.motorNum = motorNum;
+  public Rotate(Climber climber, Joystick joy, int motorNum) {
+    this.climber = climber;
     this.joy = joy;
+    this.motorNum = motorNum;
+    addRequirements(climber);
   }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pid.setSetpoint(angle);
   }
  
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /*double climberAngle = Math.PI / 2;
-    if(motorNum == 1) climberAngle = climber.getAngleFrontLeft();
-    else if (motorNum == 2) climberAngle = climber.getAngleFrontRight();
-    else if (motorNum == 3) climberAngle = climber.getAngleRearLeft();
-    else if (motorNum == 4) climberAngle = climber.getAngleRearRight();*/
-    //climber.rotate(motorNum, pid.calculate(climberAngle) + arm.calculate(angle, 0));
-    climber.rotate(motorNum, 0.5*joy.getRawAxis(0));
+    climber.rotate(motorNum, 0.2*joy.getX());
+    SmartDashboard.putNumber("Joy X", 0.2*joy.getX());
   }
  
   // Called once the command ends or is interrupted.

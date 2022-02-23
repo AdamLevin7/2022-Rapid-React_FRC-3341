@@ -18,7 +18,7 @@ public final class Constants {
        public static final int frontRightRotPort = 0;
        public static final int rearLeftRotPort = 0;
        public static final int rearRightRotPort = 0;
-       public static final int frontLeftExPort = 0;
+       public static final int frontLeftExPort = 1;
        public static final int frontRightExPort = 0;
        public static final int rearLeftExPort = 0;
        public static final int rearRightExPort = 0;
@@ -37,9 +37,9 @@ public final class Constants {
    }
 
    public final class armAngles{
-       public static final double up = Math.PI;
-       public static final double down = 0;
-       public static final double zero = Math.PI / 2;
+       public static final double up = 30;
+       public static final double down = -30;
+       public static final double zero = 0;
    }
 
    public final class MotorNums{
@@ -54,7 +54,7 @@ public final class Constants {
    }
 
    public static final class pidConsts{
-       public static final double pidP = 0;
+       public static final double pidP = .8;
        public static final double pidI = 0;
        public static final double pidD = 0;
  }
