@@ -38,7 +38,7 @@ public class PIDRotate extends CommandBase {
     /*else if (motorNum == 2) climberAngle = climber.getAngleFrontRight();
     else if (motorNum == 3) climberAngle = climber.getAngleRearLeft();
     else if (motorNum == 4) climberAngle = climber.getAngleRearRight();*/
-    int direction = 0;
+    double direction = 0;
     if(angle > climberAngle) direction = 1;
     else direction = -1;
     climber.rotate(motorNum, direction * 0.1);

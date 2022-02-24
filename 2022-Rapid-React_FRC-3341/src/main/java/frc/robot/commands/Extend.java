@@ -26,14 +26,14 @@ public class Extend extends CommandBase {
     this.climber = climber;
     this.motorNum = motorNum;
     if(motorNum == 1) currPos = Constants.ExtendConsts.frontLeftCurrPos;
-    else if(motorNum == 2) currPos = Constants.ExtendConsts.frontRightCurrPos;
+    /*else if(motorNum == 2) currPos = Constants.ExtendConsts.frontRightCurrPos;
     else if(motorNum == 3) currPos = Constants.ExtendConsts.rearLeftCurrPos;
-    else if(motorNum == 4) currPos = Constants.ExtendConsts.rearRightCurrPos;
+    else if(motorNum == 4) currPos = Constants.ExtendConsts.rearRightCurrPos;*/
     steps = pos - currPos;
-    if(motorNum == 1) input = new DigitalInput(Constants.DIOPorts.frontLeftRefSensor);
-    else if(motorNum == 2) input = new DigitalInput(Constants.DIOPorts.frontRightRefSensor);
+    if(motorNum == 5) input = new DigitalInput(Constants.DIOPorts.frontLeftRefSensor);
+    /*else if(motorNum == 2) input = new DigitalInput(Constants.DIOPorts.frontRightRefSensor);
     else if(motorNum == 3) input = new DigitalInput(Constants.DIOPorts.rearLeftRefSensor);
-    else if(motorNum == 4) input = new DigitalInput(Constants.DIOPorts.rearRightRefSensor);
+    else if(motorNum == 4) input = new DigitalInput(Constants.DIOPorts.rearRightRefSensor);*/
     if(steps > 0) direction = 1;
     else if(steps < 0) direction = -1;
     currInput = input.get();

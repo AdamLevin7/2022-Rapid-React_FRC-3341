@@ -26,10 +26,10 @@ public class Climber extends SubsystemBase {
   private final WPI_TalonSRX frontLeftEx;
  /* private final WPI_TalonSRX frontRightEx;
   private final WPI_TalonSRX rearLeftEx;
-  private final WPI_TalonSRX rearRightEx;
-  private final DigitalInput input;*/
+  private final WPI_TalonSRX rearRightEx;*/
+  private final DigitalInput input;
 
-  //private boolean currInput;
+  private boolean currInput;
  
   public Climber() {
     frontLeftRot = new WPI_TalonSRX(Constants.Ports.frontLeftRotPort);
@@ -60,8 +60,8 @@ public class Climber extends SubsystemBase {
     rearRightRot.setInverted(false);
     rearRightRot.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
  */
-    //input = new DigitalInput(Constants.DIOPorts.frontLeftRefSensor);
-   // currInput = input.get();
+    input = new DigitalInput(Constants.DIOPorts.frontLeftRefSensor);
+    currInput = input.get();
   }
   public void setPosition(double position){
     frontLeftRot.setSelectedSensorPosition(position * 4096.0 / 360.0);
@@ -106,11 +106,14 @@ public class Climber extends SubsystemBase {
  
   @Override
   public void periodic() {
-  /*  SmartDashboard.putBoolean("Input Value", input.get());
+    int direction;
+    if(RobotContainer.returnJoy().getY() < 0) direction = -1;
+    else direction = 1;
+    SmartDashboard.putBoolean("Input Value", input.get());
     if(input.get() != currInput && !input.get()){
-      Constants.ExtendConsts.frontLeftCurrPos += 1;
+      Constants.ExtendConsts.frontLeftCurrPos += direction;
     }
-    currInput = input.get();*/
+    currInput = input.get();
     SmartDashboard.putNumber("Front Left Extension", Constants.ExtendConsts.frontLeftCurrPos);
     SmartDashboard.putNumber("Front Left Rotation", getAngleFrontLeft());
     SmartDashboard.putNumber("Forward Limit Switch", frontLeftRot.isFwdLimitSwitchClosed());

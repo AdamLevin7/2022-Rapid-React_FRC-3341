@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Extend;
 import frc.robot.commands.PIDRotate;
 import frc.robot.commands.Rotate;
 import frc.robot.subsystems.Climber;
@@ -26,10 +27,15 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   //private Climber climber;
-  private PIDRotate up;
+  private PIDRotate up; 
   private PIDRotate down;
   private PIDRotate zero;
   private Rotate teleOp;
+  private Extend Ex0; 
+  private Extend Ex1;
+  private Extend Ex2;
+  private Extend Ex3;
+  private Extend Ex4;
   private static Joystick joy;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -49,6 +55,11 @@ public class RobotContainer {
     down = new PIDRotate(climber, 1, Constants.armAngles.down);
     zero = new PIDRotate(climber, 1, Constants.armAngles.zero);
     teleOp = new Rotate(climber, joy, 1);
+    Ex0 = new Extend(climber, 1, 0);
+    Ex1 = new Extend(climber, 1, 1);
+    Ex2 = new Extend(climber, 1, 2);
+    Ex3 = new Extend(climber, 1, 3);
+    Ex4 = new Extend(climber, 1, 4);
     climber.setPosition(0);
   //  driveTrain = new DriveTrain();
    // arcadeDrive = new ArcadeDrive(driveTrain, joy);
@@ -67,10 +78,22 @@ public class RobotContainer {
     JoystickButton zeroButton = new JoystickButton(joy, 3);
     JoystickButton upButton = new JoystickButton(joy, 4);
     JoystickButton downButton = new JoystickButton(joy, 5);
+
+    JoystickButton Ex0Button = new JoystickButton(joy, 7);
+    JoystickButton Ex1Button = new JoystickButton(joy, 8);
+    JoystickButton Ex2Button = new JoystickButton(joy, 9);
+    JoystickButton Ex3Button = new JoystickButton(joy, 10);
+    JoystickButton Ex4Button = new JoystickButton(joy, 11);
  
     zeroButton.whenPressed(zero, false);
     upButton.whenPressed(up, false);
     downButton.whenPressed(down, false);
+
+    Ex0Button.whenPressed(Ex0, false);
+    Ex1Button.whenPressed(Ex1, false);
+    Ex2Button.whenPressed(Ex2, false);
+    Ex3Button.whenPressed(Ex3, false);
+    Ex4Button.whenPressed(Ex4, false);
   }
  public static Joystick returnJoy(){
    return joy;

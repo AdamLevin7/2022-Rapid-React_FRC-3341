@@ -14,21 +14,21 @@ package frc.robot;
  */
 public final class Constants {
    public final class Ports{
-       public static final int frontLeftRotPort = 4;
-       public static final int frontRightRotPort = 0;
-       public static final int rearLeftRotPort = 0;
-       public static final int rearRightRotPort = 0;
+       public static final int frontLeftRotPort = 0;
+       public static final int frontRightRotPort = 2;
+       public static final int rearLeftRotPort = 2;
+       public static final int rearRightRotPort = 2;
        public static final int frontLeftExPort = 1;
-       public static final int frontRightExPort = 0;
-       public static final int rearLeftExPort = 0;
-       public static final int rearRightExPort = 0;
+       public static final int frontRightExPort = 2;
+       public static final int rearLeftExPort = 2;
+       public static final int rearRightExPort = 2;
    }
 
    public final class DIOPorts{
        public static final int frontLeftRefSensor = 0;
-       public static final int frontRightRefSensor = 0;
-       public static final int rearLeftRefSensor = 0;
-       public static final int rearRightRefSensor = 0;
+       public static final int frontRightRefSensor = 1;
+       public static final int rearLeftRefSensor = 1;
+       public static final int rearRightRefSensor = 1;
    }
 
    public final class DriveTrainPorts{
