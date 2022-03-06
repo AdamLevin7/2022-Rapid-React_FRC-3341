@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
    public final class Ports{
-       public static final int frontLeftRotPort = 0;
+       public static final int frontLeftRotPort = 4;
        public static final int frontRightRotPort = 2;
        public static final int rearLeftRotPort = 2;
        public static final int rearRightRotPort = 2;
@@ -42,15 +42,11 @@ public final class Constants {
        public static final double zero = 0;
    }
 
-   public final class MotorNums{
-       public static final int frontLeftRot = 1;
-       public static final int frontRightRot = 2;
-       public static final int rearLeftRot = 3;
-       public static final int rearRightRot = 4;
-       public static final int frontLeftEx = 5;
-       public static final int frontRightEx = 6;
-       public static final int rearLeftEx = 7;
-       public static final int rearRightEx = 8;
+   public final class armNums{
+       public static final int frontLeftArm = 1;
+       public static final int frontRightArm = 2;
+       public static final int rearLeftArm = 3;
+       public static final int rearRightArm = 4;
    }
 
    public static final class pidConsts{

@@ -28,6 +28,7 @@ public class Climber extends SubsystemBase {
   private final WPI_TalonSRX rearLeftEx;
   private final WPI_TalonSRX rearRightEx;*/
   private final DigitalInput input;
+  private int armNum;
 
   private boolean currInput;
  
@@ -90,18 +91,26 @@ public class Climber extends SubsystemBase {
     return motorPos * 360 / 4096.0;
   }
  
-  public void rotate(int motorNum, double speed){
-    if(motorNum == 1) frontLeftRot.set(ControlMode.PercentOutput, speed);
-    /*else if(motorNum == 2) frontRightRot.set(ControlMode.PercentOutput, speed);
-    else if(motorNum == 3) rearLeftRot.set(ControlMode.PercentOutput, speed);
-    else if(motorNum == 4) rearRightRot.set(ControlMode.PercentOutput, speed);*/
+  public void rotate(int armNum, double speed){
+    if(armNum == 1) frontLeftRot.set(ControlMode.PercentOutput, speed);
+    /*else if(armNum == 2) frontRightRot.set(ControlMode.PercentOutput, speed);
+    else if(armNum == 3) rearLeftRot.set(ControlMode.PercentOutput, speed);
+    else if(armNum == 4) rearRightRot.set(ControlMode.PercentOutput, speed);*/
   }
  
-  public void extend(int motorNum, double speed){
-    if(motorNum == 1) frontLeftEx.set(ControlMode.PercentOutput, speed);
-   /* else if(motorNum == 2) frontRightEx.set(ControlMode.PercentOutput, speed);
-    else if(motorNum == 3) rearLeftEx.set(ControlMode.PercentOutput, speed);
-    else if(motorNum == 4) rearRightEx.set(ControlMode.PercentOutput, speed);*/
+  public void extend(int armNum, double speed){
+    if(armNum == 1) frontLeftEx.set(ControlMode.PercentOutput, speed);
+   /* else if(armNum == 2) frontRightEx.set(ControlMode.PercentOutput, speed);
+    else if(armNum == 3) rearLeftEx.set(ControlMode.PercentOutput, speed);
+    else if(armNum == 4) rearRightEx.set(ControlMode.PercentOutput, speed);*/
+  }
+
+  public DigitalInput getInput(){
+    return input;
+  }
+
+  public void setArmNum(int armNum){
+    this.armNum = armNum;
   }
  
   @Override
@@ -120,7 +129,7 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putNumber("Reverse Limit Switch", frontLeftRot.isRevLimitSwitchClosed());
     if(frontLeftRot.isRevLimitSwitchClosed() == 0) setPosition(0);
     if(frontLeftRot.isFwdLimitSwitchClosed() == 0) setPosition(60);
-    extend(1, RobotContainer.returnJoy().getY() * 0.5);
+    extend(armNum, RobotContainer.returnJoy().getY() * 0.5);
     /*SmartDashboard.putNumber("Front Right Extension", Constants.ExtendConsts.frontRightCurrPos);
     SmartDashboard.putNumber("Rear Left Extension", Constants.ExtendConsts.rearLeftCurrPos);
     SmartDashboard.putNumber("Rear Right Extension", Constants.ExtendConsts.rearRightCurrPos);

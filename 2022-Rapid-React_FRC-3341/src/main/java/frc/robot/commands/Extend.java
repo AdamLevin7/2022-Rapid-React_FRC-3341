@@ -18,25 +18,29 @@ public class Extend extends CommandBase {
   /** Creates a new Extend. */
   private DigitalInput input;
   private Climber climber;
-  private int motorNum, steps, direction, currPos;
+  private int armNum, steps, direction, currPos;
   private boolean currInput;
  
-  public Extend(Climber climber, int motorNum, int pos) {
+  public Extend(Climber climber, int armNum, int pos) {
     addRequirements(climber);
     this.climber = climber;
-    this.motorNum = motorNum;
-    if(motorNum == 1) currPos = Constants.ExtendConsts.frontLeftCurrPos;
-    /*else if(motorNum == 2) currPos = Constants.ExtendConsts.frontRightCurrPos;
-    else if(motorNum == 3) currPos = Constants.ExtendConsts.rearLeftCurrPos;
-    else if(motorNum == 4) currPos = Constants.ExtendConsts.rearRightCurrPos;*/
+    this.armNum = armNum;
+    if(armNum == 1) {
+      currPos = Constants.ExtendConsts.frontLeftCurrPos;
+      input = climber.getInput();
+    }else{
+      currPos = 0;
+      input = climber.getInput();
+    }
+    /*else if(armNum == 2) currPos = Constants.ExtendConsts.frontRightCurrPos;
+    else if(armNum == 3) currPos = Constants.ExtendConsts.rearLeftCurrPos;
+    else if(armNum == 4) currPos = Constants.ExtendConsts.rearRightCurrPos;*/
     steps = pos - currPos;
-    if(motorNum == 5) input = new DigitalInput(Constants.DIOPorts.frontLeftRefSensor);
-    /*else if(motorNum == 2) input = new DigitalInput(Constants.DIOPorts.frontRightRefSensor);
-    else if(motorNum == 3) input = new DigitalInput(Constants.DIOPorts.rearLeftRefSensor);
-    else if(motorNum == 4) input = new DigitalInput(Constants.DIOPorts.rearRightRefSensor);*/
     if(steps > 0) direction = 1;
     else if(steps < 0) direction = -1;
+    else direction = 0;
     currInput = input.get();
+    
   }
  
   // Called when the command is initially scheduled.
@@ -54,14 +58,14 @@ public class Extend extends CommandBase {
         currPos += direction;
       }
       currInput = input.get();
-      climber.extend(motorNum, direction);
+      climber.extend(armNum, .3 * direction);
     }
   }
  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.extend(motorNum, 0);
+    climber.extend(armNum, 0);
   }
  
   // Returns true when the command should end.

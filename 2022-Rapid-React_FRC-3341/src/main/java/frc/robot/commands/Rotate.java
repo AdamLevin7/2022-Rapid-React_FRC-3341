@@ -17,12 +17,12 @@ public class Rotate extends CommandBase {
   //ArmFeedforward arm = new ArmFeedforward(Constants.charConsts.ks, Constants.charConsts.kcos, Constants.charConsts.kv);
   private Climber climber;
   private Joystick joy;
-  private int motorNum;
+  private int armNum;
  
-  public Rotate(Climber climber, Joystick joy, int motorNum) {
+  public Rotate(Climber climber, Joystick joy, int armNum) {
     this.climber = climber;
     this.joy = joy;
-    this.motorNum = motorNum;
+    this.armNum = armNum;
     addRequirements(climber);
   }
   // Called when the command is initially scheduled.
@@ -33,7 +33,7 @@ public class Rotate extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.rotate(motorNum, 0.2*joy.getX());
+    climber.rotate(armNum, 0.2*joy.getX());
     SmartDashboard.putNumber("Joy X", 0.2*joy.getX());
   }
  

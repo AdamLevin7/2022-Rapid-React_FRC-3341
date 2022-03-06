@@ -27,16 +27,21 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   //private Climber climber;
-  private PIDRotate up; 
+  private Rotate teleOpFrontLeft;
+  private Rotate teleOpFrontRight;
+  private Rotate teleOpRearLeft;
+  private Rotate teleOpRearRight;
+
+  /*private PIDRotate up; 
   private PIDRotate down;
   private PIDRotate zero;
-  private Rotate teleOp;
   private Extend Ex0; 
   private Extend Ex1;
   private Extend Ex2;
   private Extend Ex3;
-  private Extend Ex4;
+  private Extend Ex4;*/
   private static Joystick joy;
+  private static int armNum;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
  
@@ -51,19 +56,23 @@ public class RobotContainer {
     joy = new Joystick(0);
     //climber = new Climber();
     Constants.ExtendConsts.frontLeftCurrPos = 0;
-    up = new PIDRotate(climber, 1, Constants.armAngles.up);
+    teleOpFrontLeft = new Rotate(climber, joy, 1);
+    teleOpFrontRight = new Rotate(climber, joy, 2);
+    teleOpRearLeft = new Rotate(climber, joy, 3);
+    teleOpRearRight = new Rotate(climber, joy, 4);
+    
+    /*up = new PIDRotate(climber, 1, Constants.armAngles.up);
     down = new PIDRotate(climber, 1, Constants.armAngles.down);
     zero = new PIDRotate(climber, 1, Constants.armAngles.zero);
-    teleOp = new Rotate(climber, joy, 1);
     Ex0 = new Extend(climber, 1, 0);
     Ex1 = new Extend(climber, 1, 1);
     Ex2 = new Extend(climber, 1, 2);
     Ex3 = new Extend(climber, 1, 3);
-    Ex4 = new Extend(climber, 1, 4);
+    Ex4 = new Extend(climber, 1, 4);*/
     climber.setPosition(0);
   //  driveTrain = new DriveTrain();
    // arcadeDrive = new ArcadeDrive(driveTrain, joy);
-    climber.setDefaultCommand(teleOp);
+    climber.setDefaultCommand(teleOpFrontLeft);
     //driveTrain.setDefaultCommand(arcadeDrive);
     configureButtonBindings();
   }
@@ -75,7 +84,22 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton zeroButton = new JoystickButton(joy, 3);
+    JoystickButton frontLeft = new JoystickButton(joy, 5);
+    JoystickButton frontRight = new JoystickButton(joy, 6);
+    JoystickButton rearLeft = new JoystickButton(joy, 3);
+    JoystickButton rearRight = new JoystickButton(joy, 4);
+
+    frontLeft.whenPressed(teleOpFrontLeft);
+    frontRight.whenPressed(teleOpFrontRight);
+    rearLeft.whenPressed(teleOpRearLeft);
+    rearRight.whenPressed(teleOpRearRight);
+
+    if(frontLeft.get()) climber.setArmNum(1);
+    else if(frontRight.get()) climber.setArmNum(2);
+    else if(rearLeft.get()) climber.setArmNum(3);
+    else if(rearRight.get()) climber.setArmNum(4);
+
+    /*JoystickButton zeroButton = new JoystickButton(joy, 3);
     JoystickButton upButton = new JoystickButton(joy, 4);
     JoystickButton downButton = new JoystickButton(joy, 5);
 
@@ -94,6 +118,16 @@ public class RobotContainer {
     Ex2Button.whenPressed(Ex2, false);
     Ex3Button.whenPressed(Ex3, false);
     Ex4Button.whenPressed(Ex4, false);
+
+    zeroButton.whenReleased(teleOp);
+    upButton.whenReleased(teleOp);
+    downButton.whenReleased(teleOp);
+
+    Ex0Button.whenReleased(teleOp);
+    Ex1Button.whenReleased(teleOp);
+    Ex2Button.whenReleased(teleOp);
+    Ex3Button.whenReleased(teleOp);
+    Ex4Button.whenReleased(teleOp);*/
   }
  public static Joystick returnJoy(){
    return joy;
